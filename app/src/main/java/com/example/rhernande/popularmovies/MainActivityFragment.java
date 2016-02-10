@@ -47,7 +47,14 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("IMDB - Popular Movies");
     }
 
     @Override
@@ -121,7 +128,7 @@ public class MainActivityFragment extends Fragment {
                     .appendPath("3")
                     .appendPath("discover")
                     .appendPath("movie")
-                    .appendQueryParameter("api_key", "")
+                    .appendQueryParameter("api_key", getString(R.string.API_KEY))
                     .appendQueryParameter("sort_by", sort);
 
             String uri = builder.build().toString();
