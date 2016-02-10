@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -41,8 +44,35 @@ public class MainActivityFragment extends Fragment {
         updateMoviePosters();
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_sort, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_sort_popular) {
+            updateMoviePosters("popularity.desc");
+            return true;
+        } else if (id == R.id.action_sort_rating) {
+            updateMoviePosters("vote_count.desc");
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void updateMoviePosters() {
         new FetchMoviesClass().execute();
+    }
+
+    private void updateMoviePosters(String sort) {
+        new FetchMoviesClass().execute(sort);
     }
 
     @Override
@@ -52,8 +82,6 @@ public class MainActivityFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         gridView = (GridView) rootView.findViewById(R.id.gridview);
-
-        //gridView.setAdapter(adapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -72,9 +100,6 @@ public class MainActivityFragment extends Fragment {
         protected void onPostExecute(String[] posterPaths) {
             if (posterPaths != null) {
                 gridView.setAdapter(new ImageAdapter(getContext(), posterPaths));
-
-                //adapter.setPosterPaths(posterPaths);
-                //adapter.notifyDataSetChanged();
             }
         }
 
@@ -82,13 +107,16 @@ public class MainActivityFragment extends Fragment {
         protected String[] doInBackground(String... params) {
 
             Uri.Builder builder = new Uri.Builder();
-            
+
+            String sort = (params.length > 0) ? params[0] : "popularity.desc";
+
             builder.scheme("http")
                     .authority("api.themoviedb.org")
                     .appendPath("3")
                     .appendPath("discover")
                     .appendPath("movie")
-                    .appendQueryParameter("api_key", "API_KEY");
+                    .appendQueryParameter("api_key", "")
+                    .appendQueryParameter("sort_by", sort);
 
             String uri = builder.build().toString();
             Log.v(LOG_TAG, "URI value: " + uri);

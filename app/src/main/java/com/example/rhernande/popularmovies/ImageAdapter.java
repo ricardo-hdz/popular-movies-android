@@ -17,7 +17,7 @@ public class ImageAdapter extends BaseAdapter {
     private String[] mPaths;
 
     private final String BASE_URL = "http://image.tmdb.org/t/p/";
-    private final String IMAGE_SIZE = "w92";
+    private final String IMAGE_SIZE = "w185";
 
     public ImageAdapter(Context context) {
         mContext = context;
@@ -54,7 +54,7 @@ public class ImageAdapter extends BaseAdapter {
         ImageView imageView;
         if (convertView == null) {
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+            imageView.setLayoutParams(new GridView.LayoutParams(185, 185));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8,8,8,8);
         } else {
