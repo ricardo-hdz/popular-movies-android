@@ -1,5 +1,6 @@
 package com.example.rhernande.popularmovies;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -86,7 +86,14 @@ public class MainActivityFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), "" + position, Toast.LENGTH_SHORT).show();
+                Intent detailIntent = new Intent(getActivity().getApplicationContext(), movie_detail.class);
+                //Bundle mBundle = new Bundle();
+                //mBundle.putSerializable(movie_detail.class.getSimpleName() + ".serializable", gridView.getItemAtPosition(position));
+                Movie selectedMovie = (Movie) gridView.getAdapter().getItem(position);
+                Log.v("DEBUG MOVIE", selectedMovie.title);
+                detailIntent.putExtra("movie", selectedMovie);
+                startActivity(detailIntent);
+                //Toast.makeText(getContext(), "" + position, Toast.LENGTH_SHORT).show();
             }
         });
 

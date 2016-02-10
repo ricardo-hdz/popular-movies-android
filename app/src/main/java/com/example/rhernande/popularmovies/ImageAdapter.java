@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
     private String[] mPaths;
+    private Movie[] mMovies;
 
     private final String BASE_URL = "http://image.tmdb.org/t/p/";
     private final String IMAGE_SIZE = "w185";
@@ -30,6 +31,7 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public ImageAdapter(Context context, Movie[] movies) {
+        mMovies = movies;
         mContext = context;
         String[] imagePaths = new String[movies.length];
         for (int i = 0; i < movies.length; i++) {
@@ -43,11 +45,11 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return mPaths.length;
+        return mMovies.length;
     }
 
     public Object getItem(int position) {
-        return null;
+        return mMovies[position];
     }
 
     public long getItemId(int position) {

@@ -23,6 +23,71 @@
         android:layout_height="185dp"
         android:id="@+id/image_view_poster"
         android:paddingTop="50dp"
-        android:layout_alignParentLeft="true" />
+        android:layout_below="@+id/movie_title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/editTextSynopsis"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/movie_title"
+        android:layout_alignEnd="@+id/movie_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Synopsis"
+        android:id="@+id/textView"
+        android:layout_below="@+id/image_view_poster"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="@dimen/abc_text_size_medium_material" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Rating"
+        android:id="@+id/textView2"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_alignTop="@+id/image_view_poster"
+        android:layout_toRightOf="@+id/image_view_poster"
+        android:layout_toEndOf="@+id/image_view_poster" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rating Placeholder"
+        android:id="@+id/textViewRating"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_below="@+id/textView2"
+        android:layout_toRightOf="@+id/image_view_poster"
+        android:layout_toEndOf="@+id/image_view_poster" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Release Date"
+        android:id="@+id/labelReleaseDate"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_below="@+id/textViewRating"
+        android:layout_toRightOf="@+id/image_view_poster"
+        android:layout_toEndOf="@+id/image_view_poster"
+        android:layout_marginTop="39dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Release Date Placeholder"
+        android:id="@+id/textViewReleaseDate"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_below="@+id/labelReleaseDate"
+        android:layout_toRightOf="@+id/image_view_poster"
+        android:layout_toEndOf="@+id/image_view_poster" />
 
 </RelativeLayout>

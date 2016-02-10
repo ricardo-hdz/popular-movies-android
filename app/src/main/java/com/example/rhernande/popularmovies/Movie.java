@@ -16,6 +16,8 @@ import java.util.Date;
  */
 public class Movie implements Serializable {
     private final String LOG_TAG = Movie.class.getSimpleName();
+    private final String BASE_URL = "http://image.tmdb.org/t/p/";
+    private final String IMAGE_SIZE = "w185";
 
     String title;
     String posterPath;
@@ -37,5 +39,9 @@ public class Movie implements Serializable {
         } catch (ParseException e) {
             Log.e(LOG_TAG, "Unable to parse date", e);
         }
+    }
+
+    public String getFullPosterPath() {
+        return BASE_URL + IMAGE_SIZE + "/" + posterPath;
     }
 }
