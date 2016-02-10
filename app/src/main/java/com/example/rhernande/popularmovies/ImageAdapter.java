@@ -29,6 +29,15 @@ public class ImageAdapter extends BaseAdapter {
         mPaths = imagePaths;
     }
 
+    public ImageAdapter(Context context, Movie[] movies) {
+        mContext = context;
+        String[] imagePaths = new String[movies.length];
+        for (int i = 0; i < movies.length; i++) {
+            imagePaths[i] = movies[i].posterPath;
+        }
+        mPaths = imagePaths;
+    }
+
     public void setPosterPaths(String[] paths) {
         mPaths = paths;
     }

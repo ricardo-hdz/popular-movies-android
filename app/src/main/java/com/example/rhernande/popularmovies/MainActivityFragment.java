@@ -93,18 +93,17 @@ public class MainActivityFragment extends Fragment {
         return rootView;
     }
 
-    public class FetchMoviesClass extends AsyncTask<String, Void, String[]> {
+    public class FetchMoviesClass extends AsyncTask<String, Void, Movie[]> {
         private final String LOG_TAG = FetchMoviesClass.class.getSimpleName();
 
-        @Override
-        protected void onPostExecute(String[] posterPaths) {
-            if (posterPaths != null) {
-                gridView.setAdapter(new ImageAdapter(getContext(), posterPaths));
+        protected void onPostExecute(Movie[] movies) {
+            if (movies != null) {
+                gridView.setAdapter(new ImageAdapter(getContext(), movies));
             }
         }
 
         @Override
-        protected String[] doInBackground(String... params) {
+        protected Movie[] doInBackground(String... params) {
 
             Uri.Builder builder = new Uri.Builder();
 
@@ -166,11 +165,25 @@ public class MainActivityFragment extends Fragment {
 
             try {
                 // parse JSON file
-                return getMoviePostersFromJSON(responseString, 20);
+                //return getMoviePostersFromJSON(responseString, 20);
+                return getMoviesFromResponse(responseString);
             } catch (JSONException e) {
                 Log.e(LOG_TAG, "Error while parsing JSON", e);
                 return null;
             }
+        }
+
+        private Movie[] getMoviesFromResponse(String response) throws JSONException {
+            JSONObject responseJSON = new JSONObject(response);
+            JSONArray results = responseJSON.getJSONArray("results");
+
+            Movie[] movies = new Movie[results.length()];
+            for (int i = 0; i < results.length(); i++) {
+                JSONObject movieObject = results.getJSONObject(i);
+                Movie movie = new Movie(movieObject);
+                movies[i] = movie;
+            }
+            return movies;
         }
 
         private String[] getMoviePostersFromJSON(String response, int numPosters) throws JSONException {
